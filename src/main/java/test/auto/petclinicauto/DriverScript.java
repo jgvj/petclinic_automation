@@ -38,7 +38,7 @@ public class DriverScript
        int randomNum = getRandomInt(1,10000);
        System.out.println(randomNum);
        boolean isExist = findOwnerPage.isOwnerExist("LTester"+randomNum);
-       System.out.println(isExist);
+       //System.out.println(isExist);
        if(!isExist) {
     	   findOwnerPage.clickAddOwnerButton();
     	   AddOwnerPage addOwnerPage = new AddOwnerPage();
