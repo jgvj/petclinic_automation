@@ -25,7 +25,7 @@ public class DriverScript
     public static void main( String[] args )
     {
        WebDriver driver = WebDriverUtil.getDriver("chrome");
-       driver.get("http://52.146.56.80:8081/petclinic/");
+       driver.get("http://52.146.56.80:32111/petclinic/");
        MainPage mainPage = new MainPage();
        PageFactory.initElements(driver, mainPage);
        mainPage.clickFindOwnerLink();
