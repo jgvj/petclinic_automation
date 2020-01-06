@@ -51,29 +51,32 @@ public class DriverScript
        OwnerDetailPage ownerDetailPage = new OwnerDetailPage();
        PageFactory.initElements(driver, ownerDetailPage);
        ownerDetailPage.clickAddNewPet();
-       List<String> typeList = new ArrayList<>();
-       typeList.add("bird");
-       typeList.add("dog");
-       typeList.add("cat");
-       typeList.add("lizard");
-       typeList.add("hamster");
-       typeList.add("snake");
-       NewPetPage newPetPage = new NewPetPage();
-       PageFactory.initElements(driver, newPetPage);
-       
-       String birthDate = "";
-       String year = String.valueOf(getRandomInt(2000,2019));
-      
-       int month = getRandomInt(1,12);
-       int day = getRandomInt(1,30);
-       birthDate = year+"-"+ format(month)+"-"+format(day);
-      
-       Pet pet = new Pet("pet"+randomNum, birthDate,getRandomElement(typeList));
-       newPetPage.fillForm(pet);
-       newPetPage.clickAddPet();
-       
-       ownerDetailPage.isAddNetPetBtnExist();
-       
+       try{
+    	   List<String> typeList = new ArrayList<>();
+	       typeList.add("bird");
+	       typeList.add("dog");
+	       typeList.add("cat");
+	       typeList.add("lizard");
+	       typeList.add("hamster");
+	       typeList.add("snake");
+	       NewPetPage newPetPage = new NewPetPage();
+	       PageFactory.initElements(driver, newPetPage);
+	       
+	       String birthDate = "";
+	       String year = String.valueOf(getRandomInt(2000,2019));
+	      
+	       int month = getRandomInt(1,12);
+	       int day = getRandomInt(1,30);
+	       birthDate = year+"-"+ format(month)+"-"+format(day);
+	      
+	       Pet pet = new Pet("pet"+randomNum, birthDate,getRandomElement(typeList));
+	       newPetPage.fillForm(pet);
+	       newPetPage.clickAddPet();
+	       
+	       ownerDetailPage.isAddNetPetBtnExist();
+       }catch(Exception e) {
+    	   System.out.println("Add Pet is stopped");
+       }
        driver.close();
        driver.quit();
     }
