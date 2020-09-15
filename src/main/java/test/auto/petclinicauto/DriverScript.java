@@ -24,8 +24,23 @@ public class DriverScript
 {
     public static void main( String[] args )
     {
+    	String env = args[0];
+    	System.out.println("Current environment: " + env);
+    	String url = "https://jgvjpetclinicqa.azurewebsites.net/petclinic/";
+    	if(env.equalsIgnoreCase("qa")) {
+    		url = "https://jgvjpetclinicqa.azurewebsites.net/petclinic/";
+    	}else if(env.equalsIgnoreCase("dev")) {
+    		url = "https://jgvjpetclinicdev.azurewebsites.net/petclinic/";
+    	}else if(env.equalsIgnoreCase("prod")) {
+    		url = "https://jgvjpetclinic.azurewebsites.net/petclinic/";
+    	}
+    	
+    	System.out.println("URL: " + url);
        WebDriver driver = WebDriverUtil.getDriver("chrome");
-       driver.get("http://52.146.56.80:32111/petclinic/");
+//       WebDriver driver = WebDriverUtil.getDriver("ie");
+//       driver.get("http://52.146.56.80:32111/petclinic/");
+       driver.get(url);
+       
        MainPage mainPage = new MainPage();
        PageFactory.initElements(driver, mainPage);
        mainPage.clickFindOwnerLink();

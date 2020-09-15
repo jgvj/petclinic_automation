@@ -46,7 +46,7 @@ public class WebDriverUtil {
 	}
 
 	private static WebDriver initChromeBrowser() {
-		System.setProperty("webdriver.chrome.driver", "driver/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("start-maximized");
 		options.addArguments("--no-sandbox");
