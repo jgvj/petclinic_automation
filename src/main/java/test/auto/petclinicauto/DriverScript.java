@@ -24,7 +24,11 @@ public class DriverScript
 {
     public static void main( String[] args )
     {
-    	String env = args[0];
+    	String env = "qa";
+    	if(args.length > 0 && !args[0].isEmpty()) {
+    		env = args[0];
+    	}
+    	
     	System.out.println("Current environment: " + env);
     	String url = "https://jgvjpetclinicqa.azurewebsites.net/petclinic/";
     	if(env.equalsIgnoreCase("qa")) {
