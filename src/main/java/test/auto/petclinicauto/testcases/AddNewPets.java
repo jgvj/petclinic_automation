@@ -7,6 +7,8 @@ import java.util.Random;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import test.auto.petclinicauto.entity.Owner;
@@ -22,8 +24,8 @@ public class AddNewPets {
 	private static WebDriver driver = null;
 	private static int randomNum = 0;
 	
-	@Test(description="Login PetClinic", alwaysRun=true)
-	public static void testLoginPetClinic() {
+	@BeforeTest
+	  public void openBrowser() {
 		Reporter.log("Login:");
 		String env = "qa";
     	
@@ -47,11 +49,26 @@ public class AddNewPets {
     	       driver.close();
     	       driver.quit();
     	}
+	  }
 
-	}
+	  @AfterTest
+	  public void closeBrowser() {
+		  Reporter.log("Close PetClinic");
+
+	    	try {
+	    		if(driver != null) {
+		    		driver.close();
+		 	       	driver.quit();
+	    		}
+
+	    	}catch(Exception e) {
+	    		e.printStackTrace();
+	    		Reporter.log(e.getMessage());
+	    	}
+	  }
 	
-	@Test(description="Go to Owner page", alwaysRun=true)
-	public static void testOwnerPage() throws Exception{
+	@Test(description="Go to Owner page and add new pets", alwaysRun=true)
+	public static void testAddNewPets() throws Exception{
 		try {
 			Reporter.log("Find owner and verify if owner exists.");
 		       MainPage mainPage = new MainPage();
@@ -75,6 +92,33 @@ public class AddNewPets {
 		    	   addOwnerPage.submitForm();
 		    	   Reporter.log("Owner created.");
 		       }
+		       
+				Reporter.log("Add new pets");
+				OwnerDetailPage ownerDetailPage = new OwnerDetailPage();
+			    PageFactory.initElements(driver, ownerDetailPage);
+			    ownerDetailPage.clickAddNewPet();
+			    List<String> typeList = new ArrayList<>();
+				       typeList.add("bird");
+				       typeList.add("dog");
+				       typeList.add("cat");
+				       typeList.add("lizard");
+				       typeList.add("hamster");
+				       typeList.add("snake");
+				       NewPetPage newPetPage = new NewPetPage();
+				       PageFactory.initElements(driver, newPetPage);
+				       
+				       String birthDate = "";
+				       String year = String.valueOf(getRandomInt(2000,2019));
+				      
+				       int month = getRandomInt(1,12);
+				       int day = getRandomInt(1,30);
+				       birthDate = year+"-"+ format(month)+"-"+format(day);
+				      
+				       Pet pet = new Pet("pet"+randomNum, birthDate,getRandomElement(typeList));
+				       newPetPage.fillForm(pet);
+				       newPetPage.clickAddPet();
+				       
+				       ownerDetailPage.isAddNetPetBtnExist();
 		}catch(Exception e) {
     		e.printStackTrace();
     		Reporter.log(e.getMessage());
@@ -84,57 +128,12 @@ public class AddNewPets {
 
 	}
 	
-	@Test(description="Add new pets", alwaysRun=true)
-	public static void testAddNewPets() throws Exception{
-		try {
-			Reporter.log("Add new pets");
-			OwnerDetailPage ownerDetailPage = new OwnerDetailPage();
-		    PageFactory.initElements(driver, ownerDetailPage);
-		    ownerDetailPage.clickAddNewPet();
-		    List<String> typeList = new ArrayList<>();
-			       typeList.add("bird");
-			       typeList.add("dog");
-			       typeList.add("cat");
-			       typeList.add("lizard");
-			       typeList.add("hamster");
-			       typeList.add("snake");
-			       NewPetPage newPetPage = new NewPetPage();
-			       PageFactory.initElements(driver, newPetPage);
-			       
-			       String birthDate = "";
-			       String year = String.valueOf(getRandomInt(2000,2019));
-			      
-			       int month = getRandomInt(1,12);
-			       int day = getRandomInt(1,30);
-			       birthDate = year+"-"+ format(month)+"-"+format(day);
-			      
-			       Pet pet = new Pet("pet"+randomNum, birthDate,getRandomElement(typeList));
-			       newPetPage.fillForm(pet);
-			       newPetPage.clickAddPet();
-			       
-			       ownerDetailPage.isAddNetPetBtnExist();
-		}catch(Exception e) {
-    		e.printStackTrace();
-    		Reporter.log(e.getMessage());
-    	       driver.close();
-    	       driver.quit();
-    	}
+	@Test(description="Hello world test.", alwaysRun=true)
+	public static void testHello() throws Exception{
+		Reporter.log("Hello world. pass");
 
 	}
 
-	@Test(description="Close PetClinic", alwaysRun=true)
-	public static void testClosePetClinic() {
-		Reporter.log("Close PetClinic");
-
-    	try {
-    		driver.close();
- 	       	driver.quit();
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    		Reporter.log(e.getMessage());
-    	}
-
-	}
 	private static String format(int month) {
 		String monthStr=String.valueOf(month);
 		   if(month<10) {
