@@ -72,6 +72,25 @@
                 </execution>
             </executions>
         </plugin>
+        <plugin>  
+			   <groupId>org.codehaus.mojo</groupId>  
+			   <artifactId>exec-maven-plugin</artifactId>  
+			   <version>1.6.0</version>  
+			   <executions>  
+			    <execution>  
+			     <phase>test</phase>  
+			     <goals>  
+			      <goal>java</goal>  
+			     </goals>  
+			     <configuration>  
+			      <mainClass>test.auto.petclinicauto.DriverScript</mainClass> 
+			      <arguments>  
+			      	<argument>qa</argument>  
+			      </arguments>  
+			     </configuration>  
+			    </execution>  
+			   </executions>  
+			  </plugin> 
         </plugins>
         </build>
 </project>
