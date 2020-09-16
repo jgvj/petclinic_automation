@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import test.auto.petclinicauto.entity.Owner;
@@ -27,7 +28,7 @@ public class AddNewPets {
 	@BeforeTest
 	  public void openBrowser() {
 		Reporter.log("Login:");
-		String env = "qa";
+		String env = System.getProperty("environment");
     	
     	System.out.println("Current environment: " + env);
     	String url = "https://jgvjpetclinicqa.azurewebsites.net/petclinic/";
@@ -35,8 +36,6 @@ public class AddNewPets {
     		url = "https://jgvjpetclinicqa.azurewebsites.net/petclinic/";
     	}else if(env.equalsIgnoreCase("dev")) {
     		url = "https://jgvjpetclinicdev.azurewebsites.net/petclinic/";
-    	}else if(env.equalsIgnoreCase("prod")) {
-    		url = "https://jgvjpetclinic.azurewebsites.net/petclinic/";
     	}
     	
     	System.out.println("URL: " + url);

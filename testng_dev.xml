@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name = "Pet Clinic Test">
+    <test name="DEV_Add New Pets">
+        <classes>
+            <class name = "test.auto.petclinicauto.testcases.DEVTest" />
+        </classes>
+    </test>
+</suite>
