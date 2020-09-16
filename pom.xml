@@ -39,6 +39,7 @@
     	<version>3.0.0</version>
     </dependency>
   </dependencies>
+  
   <build>
   <plugins>
          <plugin>
@@ -46,7 +47,13 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <version>2.19</version>
             <configuration>
-                <suiteXmlFiles>testng.xml</suiteXmlFiles>
+		        <systemPropertyVariables>
+		            <environment>${demo.automation.environment}</environment>
+		        </systemPropertyVariables>
+                <argLine>-Dfile.encoding=UTF-8</argLine>
+                <suiteXmlFiles>
+                    <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                </suiteXmlFiles>
             </configuration>
         </plugin>
         
@@ -110,5 +117,26 @@
 			</plugin> 
 			 -->
         </plugins>
-        </build>
+      </build>
+        
+        <profiles>
+          <profile>
+              <id>QA</id>
+              <activation>
+                 <activeByDefault>true</activeByDefault>
+              </activation>
+              <properties>
+                  <demo.automation.environment>QA</demo.automation.environment>
+                  <suiteXmlFile>testng.xml</suiteXmlFile>
+              </properties>
+         </profile>
+
+         <profile>
+             <id>DEV</id>
+             <properties>
+                  <demo.automation.environment>DEV</demo.automation.environment>
+                  <suiteXmlFile>testng_dev.xml</suiteXmlFile>
+             </properties>
+         </profile>
+		</profiles>
 </project>
