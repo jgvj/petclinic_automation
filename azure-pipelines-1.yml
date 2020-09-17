@@ -14,7 +14,9 @@ steps:
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)'
-    Contents: '**/*.*'
+    Contents: |
+      **/*
+      !.git/**/*
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: AutoTest2'
